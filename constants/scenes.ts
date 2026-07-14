@@ -1,0 +1,23 @@
+import type { Scene } from "@/types/transformer";
+export const scenes: Scene[] = [
+  ["intro","The invitation","Introduction","Transformers turn relationships between tokens into context. Let’s make that visible.","violet"],
+  ["tokenization","01 / Input","Tokenization","Split language into the small, reusable pieces a model can represent.","cyan"],
+  ["embeddings","02 / Meaning","Embeddings","Look up a dense vector for each token — a position in a learned meaning-space.","violet"],
+  ["position","03 / Order","Positional encoding","Add a distinct positional signal so order survives parallel processing.","amber"],
+  ["qkv","04 / Ask, match, carry","Query · Key · Value","Each token creates three learned views: what it seeks, what it offers, and what it carries.","rose"],
+  ["attention","05 / Relate","Self attention","Every token compares its query with every key, then gathers the most useful values.","cyan"],
+  ["softmax","06 / Choose","Softmax","Turn unbounded compatibility scores into a probability distribution that sums to one.","amber"],
+  ["matrix","07 / Map","Attention matrix","Each row is a token’s context map: its distribution of attention across the sequence.","violet"],
+  ["heads","08 / Perspectives","Multi-head attention","Several attention heads independently learn complementary relationships, then merge.","rose"],
+  ["ffn","09 / Transform","Feed-forward network","A token-wise MLP expands, activates, and compresses each contextual representation.","cyan"],
+  ["residual","10 / Preserve","Residual connections","A fast path adds the original signal back, protecting information and gradients.","amber"],
+  ["normalization","11 / Stabilize","Layer normalization","Normalize features within each token so deep stacks remain stable.","violet"],
+  ["encoder","12 / Understand","Encoder stack","Repeated blocks progressively produce contextual representations for every input token.","cyan"],
+  ["decoder","13 / Compose","Decoder stack","The decoder builds an answer one token at a time while consulting the encoder.","rose"],
+  ["masked","14 / Don’t peek","Masked self attention","A causal mask makes future positions unavailable during autoregressive generation.","amber"],
+  ["cross","15 / Consult","Cross attention","Decoder queries select relevant information from encoder keys and values.","violet"],
+  ["projection","16 / Speak","Vocabulary projection","A final linear layer scores every token in the vocabulary; softmax turns scores into choices.","cyan"],
+  ["generation","17 / Continue","Autoregressive generation","Append the selected token and repeat — one carefully conditioned prediction at a time.","rose"],
+  ["pipeline","18 / See it whole","Complete pipeline","Trace one signal through the complete encoder–decoder Transformer.","amber"],
+  ["playground","19 / Experiment","Interactive playground","Change the sentence and architecture knobs. Watch the story recompute.","violet"],
+].map(([id, eyebrow, title, description, accent], index) => ({ id: id as Scene["id"], eyebrow, title, description, accent: accent as Scene["accent"], duration: 7 + (index % 3) * 2 }));

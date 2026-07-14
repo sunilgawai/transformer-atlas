@@ -1,0 +1,10 @@
+"use client";
+import { create } from "zustand";
+import { scenes } from "@/constants/scenes";
+import { tokenize } from "@/math/attention";
+import type { LearningMode, SceneId } from "@/types/transformer";
+type StudioState = { sceneId: SceneId; progress: number; playing: boolean; speed: number; selectedToken: number; pinnedTokens: number[]; input: string; positionalEncoding: boolean; heads: number; layers: number; mode: LearningMode; reducedMotion: boolean; setScene: (id: SceneId) => void; seek: (progress: number) => void; togglePlaying: () => void; setSpeed: (speed: number) => void; selectToken: (index: number) => void; pinToken: (index: number) => void; setInput: (input: string) => void; setPositionalEncoding: (value: boolean) => void; setHeads: (heads: number) => void; setLayers: (layers: number) => void; setMode: (mode: LearningMode) => void; reset: () => void };
+export const useStudioStore = create<StudioState>((set, get) => ({
+  sceneId: "intro", progress: 0.14, playing: true, speed: 1, selectedToken: 1, pinnedTokens: [], input: "The cat sat on the warm mat", positionalEncoding: true, heads: 4, layers: 6, mode: "beginner", reducedMotion: false,
+  setScene: (sceneId) => set({ sceneId, progress: 0.08, playing: true }), seek: (progress) => set({ progress: Math.max(0, Math.min(1, progress)) }), togglePlaying: () => set((state) => ({ playing: !state.playing })), setSpeed: (speed) => set({ speed }), selectToken: (selectedToken) => set({ selectedToken }), pinToken: (index) => set((state) => ({ pinnedTokens: state.pinnedTokens.includes(index) ? state.pinnedTokens.filter((item) => item !== index) : [...state.pinnedTokens, index] })), setInput: (input) => { const tokens = tokenize(input); set({ input, selectedToken: Math.min(get().selectedToken, Math.max(0, tokens.length - 1)) }); }, setPositionalEncoding: (positionalEncoding) => set({ positionalEncoding }), setHeads: (heads) => set({ heads }), setLayers: (layers) => set({ layers }), setMode: (mode) => set({ mode }), reset: () => set({ progress: 0, playing: false, selectedToken: 0, pinnedTokens: [] }),
+}));

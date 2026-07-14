@@ -1,0 +1,5 @@
+"use client";
+import { Pause, Play, RotateCcw, SkipBack } from "lucide-react";
+import { IconButton, Pill } from "@/components/ui";
+import { useStudioStore } from "@/stores/studio-store";
+export function PlaybackControls() { const { playing, togglePlaying, speed, setSpeed, reset, progress, seek } = useStudioStore(); return <div className="playback" aria-label="Animation playback controls"><IconButton onClick={reset} aria-label="Restart scene"><RotateCcw size={16}/></IconButton><IconButton onClick={() => seek(Math.max(0, progress - .08))} aria-label="Step backwards"><SkipBack size={16}/></IconButton><IconButton className="play-main" onClick={togglePlaying} aria-label={playing ? "Pause animation" : "Play animation"}>{playing ? <Pause size={17} fill="currentColor"/> : <Play size={17} fill="currentColor"/>}</IconButton><div className="speed-group" aria-label="Playback speed">{[0.5, 1, 1.5, 2].map((value) => <Pill key={value} active={speed === value} onClick={() => setSpeed(value)}>{value}×</Pill>)}</div></div>; }

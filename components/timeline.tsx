@@ -1,0 +1,4 @@
+"use client";
+import { scenes } from "@/constants/scenes";
+import { useStudioStore } from "@/stores/studio-store";
+export function Timeline() { const { sceneId, progress, seek, setScene } = useStudioStore(); return <section className="timeline-wrap" aria-label="Cinematic timeline"><div className="timeline-label"><span>Chapter {String(scenes.findIndex((s) => s.id === sceneId) + 1).padStart(2, "0")}</span><span>{Math.round(progress * 100)}% through scene</span></div><input aria-label="Scrub current scene" className="scrubber" type="range" min="0" max="100" value={Math.round(progress * 100)} onChange={(e) => seek(Number(e.target.value) / 100)}/><div className="chapter-dots">{scenes.map((scene, i) => <button key={scene.id} onClick={() => setScene(scene.id)} aria-label={`Jump to ${scene.title}`} className={scene.id === sceneId ? "chapter-dot selected" : "chapter-dot"} title={scene.title}>{i + 1}</button>)}</div></section>; }

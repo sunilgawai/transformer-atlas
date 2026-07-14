@@ -1,0 +1,2 @@
+import { expect, test } from "@playwright/test";
+test("learners can navigate and edit the playground", async ({ page }) => { await page.goto("/"); await expect(page.getByText("The invitation")).toBeVisible(); await page.getByRole("button", { name: /Self attention/i }).click(); await expect(page.getByText("Self attention", { exact: true })).toBeVisible(); await page.getByLabel("Input sentence").fill("Attention makes meaning visible"); await expect(page.getByText(/4 tokens/)).toBeVisible(); });
